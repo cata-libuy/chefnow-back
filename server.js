@@ -23,7 +23,7 @@ const app = express();
 
 // wake up
 app.get('/test', (req, res) => {
-  res.send('Bienvenido postulante!')
+  res.send('Que tal!')
 });
 
 // Run server
