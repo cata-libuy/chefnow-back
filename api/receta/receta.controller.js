@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const Receta = mongoose.model('Receta');
 
 module.exports.create = async (req, res) => {
-  console.log('---------------------->',req.body);
   const receta = new Receta(req.body);
   receta.save((error, response) => {
     if (error) {
@@ -16,18 +15,23 @@ module.exports.create = async (req, res) => {
     }
   });
 };
-
+/*  Method listar
+ *  URI: /receta
+ *  Method: get
+ */
 module.exports.list = async (req, res) => {
-  let recetas = ["receta1","receta2","receta3"]
-  res.json(recetas);
+    Receta.find({ deleted: false }).then(
+    (response) => res.send(response),
+    (err) => res.status(400).send(err)
+  );
 };
 
 /*  Method Remove
- *  URI: /board/:id
+ *  URI: /receta/:id
  *  Method: DELETE
  */
 module.exports.remove = (req, res) => {
-  Burguer.findOneAndUpdate(
+  Receta.findOneAndUpdate(
     {
       _id: req.params.id
     },
@@ -46,11 +50,11 @@ module.exports.remove = (req, res) => {
 };
 
 /*  Method Update
- *  URI: /burguer/:id
+ *  URI: /receta/:id
  *  Method: PUT
 */
 module.exports.update = (req, res) => {
-  Burguer.findOneAndUpdate(
+  Receta.findOneAndUpdate(
     {
       _id: req.params.id,
       deleted: false
@@ -71,18 +75,18 @@ module.exports.update = (req, res) => {
 
 
 /*  Method View
- *  URI: /burguer/:id
+ *  URI: /receta/:id
  *  Method: GET
  */
 module.exports.view = async (req, res) => {
   try {
-    const burguer = await Burguer
+    const receta = await Receta
       .findOne({ _id: req.params.id, deleted: false })
       .lean();
-    if (!burguer) {
+    if (!receta) {
       throw new Error();
     }
-    res.json({ hamburguesa: burguer });
+    res.json({ receta });
   } catch (err) {
     errorTraceRaven(err);
     res.status(404).send(err);

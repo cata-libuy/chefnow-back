@@ -18,6 +18,10 @@ tiempoPreparacion: {
 porcion: {
   type: Number,
   required: true,   
+},
+deleted:{
+  type: Boolean,
+  default: false
 }  
   
 });
