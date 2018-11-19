@@ -36,8 +36,7 @@ app.get('/test', (req, res) => {
 require('./api/api')(app);
 
 // Run server
-// const { port } = settings;
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log('app is running on port', port);
