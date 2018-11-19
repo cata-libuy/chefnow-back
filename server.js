@@ -6,7 +6,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 // Conectar a base de datos
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/chef-now';
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/chef-now';
 mongoose.connect(mongoUri);
 mongoose.connection.on('error', (error) => {
   console.log('Error conectandose a bbdd', error);
