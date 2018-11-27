@@ -18,9 +18,12 @@ const UserSchema = new mongoose.Schema({
     required: true,  
   },
   password:{
-    type: String,
-    default: false
-  }  
+    type: String
+  },
+  deleted: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 // Export model for endpoint
