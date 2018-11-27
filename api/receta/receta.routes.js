@@ -1,9 +1,7 @@
 // Load controller
 const controller = require('./receta.controller');
 
-
 // Export routes endpoint
-
 module.exports = (app) => {
  app.get('/receta', controller.list);
  app.post('/receta', controller.create);
