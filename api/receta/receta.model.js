@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 
 // Setting model
 const RecetaSchema = new mongoose.Schema({
-    urlImagen: {
-        type: String,
-        required: true,
-    },
     titulo: {
         type: String,
         required: true,
@@ -26,8 +22,11 @@ const RecetaSchema = new mongoose.Schema({
     deleted: {
         type: Boolean,
         default: false
+    },
+    imagenPrincipal: {
+        type: String,
+        default: 'https://e-fisiomedic.com/wp-content/uploads/2013/11/default-placeholder-300x300.png'
     }
-
 });
 
 // Export model for endpoint
