@@ -7,5 +7,6 @@ module.exports = (app) => {
     require(`./${collection}/${collection}.model`);
     require(`./${collection}/${collection}.routes`)(app);
   });
+  require('./auth/auth.routes')(app);
   return app;
 };

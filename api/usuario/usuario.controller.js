@@ -1,6 +1,8 @@
 // Declare dependencies
 const mongoose = require('mongoose');
 const Usuario = mongoose.model('Usuario');
+const bcrypt = require('bcrypt-nodejs');
+
 
 /*  Method crear
  *  URI: /usuario
@@ -8,6 +10,12 @@ const Usuario = mongoose.model('Usuario');
  */
 module.exports.create = async (req, res) => {
   const usuario = new Usuario(req.body);
+  
+  if (!user.password) {
+    throw new Error('Password requerida');
+  }
+  user.password = bcrypt.hashSync(user.password);
+
   usuario.save((error, response) => {
     if (error) {
       console.log('Error al crear usuario', error);
@@ -60,6 +68,9 @@ module.exports.remove = (req, res) => {
  *  Method: PUT
 */
 module.exports.update = (req, res) => {
+  if (req.body.password) {
+    req.body.password = bcrypt.hashSync(req.body.password);
+  }
   Usuario.findOneAndUpdate(
     {
       _id: req.params.id,
