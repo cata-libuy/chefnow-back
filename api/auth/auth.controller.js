@@ -9,13 +9,13 @@ async function findUserByEmail(email, isTest) {
   }
 
   const filters = {
-    active: true,
+    deleted: false,
     email,
   };
 
   const user = await User
     .findOne(filters)
-    .select('_id email password role name lastName')
+    .select('_id email password')
     .lean();
 
   if (!user) {
