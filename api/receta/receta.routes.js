@@ -4,17 +4,17 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, "./uploads")
+        cb(null, './uploads')
     },
     filename: function(req, file, cb) {
-        cb(null, file.originalname)
+        let random = Math.random();
+        cb(null, `${random}-${file.originalname}`)
     }
+});
 
-})
-
-var upload = multer({
+let upload = multer({
     storage: storage
-})
+});
 
 // Export routes endpoint
 module.exports = (app) => {
@@ -24,5 +24,5 @@ module.exports = (app) => {
     app.get('/receta/:id', controller.view);
     app.put('/receta/:id', controller.update);
     app.post('/receta/imagen/', upload.single('imagen'), controller.upload);
-
+    app.get('/receta/imagen/:filename', controller.viewImage);
 };

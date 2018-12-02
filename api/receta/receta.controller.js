@@ -1,6 +1,7 @@
 // Declare dependencies
 const mongoose = require('mongoose');
 const Receta = mongoose.model('Receta');
+const fs = require('fs');
 
 module.exports.create = async(req, res) => {
     const receta = new Receta(req.body);
@@ -15,6 +16,7 @@ module.exports.create = async(req, res) => {
         }
     });
 };
+
 /*  Method listar
  *  URI: /receta
  *  Method: get
@@ -68,7 +70,6 @@ module.exports.update = (req, res) => {
     );
 };
 
-
 /*  Method View
  *  URI: /receta/:id
  *  Method: GET
@@ -86,16 +87,28 @@ module.exports.view = async(req, res) => {
         errorTraceRaven(err);
         res.status(404).send(err);
     }
-
 };
-
 
 /*  Method Upload
  *  URI: /receta/imagen/:url
  *  Method: POST
  */
 module.exports.upload = async(req, res) => {
-    console.log(req.params, req.file);
-    console.log('holaaaaa');
+    if(req.file){
+        res.json({ success: true, filename: req.file.filename});
+    }else{
+        res.status(400).send({success: false});
+    }
+};
 
+module.exports.viewImage = (req,res) =>{
+    let filename = req.params.filename;
+    fs.readFile(`./uploads/${filename}`, function (err, content) {
+        if(err){
+            res.status(400).json({success: false, msg: `no se encuentra imagen ${filename}, ${err}`})
+        }else{
+            res.writeHead(200,{'Content-type':'image/jpg'});
+            res.end(content);
+        }
+    });
 };
