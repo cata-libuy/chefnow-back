@@ -22,9 +22,18 @@ module.exports.create = async(req, res) => {
  *  Method: get
  */
 module.exports.list = async(req, res) => {
-    Receta.find({ deleted: false }).then(
+    let busqueda = req.query.search ? req.query.search : '';
+
+
+    Receta.find({
+        $and: [
+            { $or: [{ titulo: { $regex: `.*${busqueda}.*` } }, { cuerpo: { $regex: `.*${busqueda}.*` } }] },
+            { deleted: false }
+        ]
+    }).then(
         (response) => res.send(response),
         (err) => res.status(400).send(err)
+
     );
 };
 
@@ -94,20 +103,20 @@ module.exports.view = async(req, res) => {
  *  Method: POST
  */
 module.exports.upload = async(req, res) => {
-    if(req.file){
-        res.json({ success: true, filename: req.file.filename});
-    }else{
-        res.status(400).send({success: false});
+    if (req.file) {
+        res.json({ success: true, filename: req.file.filename });
+    } else {
+        res.status(400).send({ success: false });
     }
 };
 
-module.exports.viewImage = (req,res) =>{
+module.exports.viewImage = (req, res) => {
     let filename = req.params.filename;
-    fs.readFile(`./uploads/${filename}`, function (err, content) {
-        if(err){
-            res.status(400).json({success: false, msg: `no se encuentra imagen ${filename}, ${err}`})
-        }else{
-            res.writeHead(200,{'Content-type':'image/jpg'});
+    fs.readFile(`./uploads/${filename}`, function(err, content) {
+        if (err) {
+            res.status(400).json({ success: false, msg: `no se encuentra imagen ${filename}, ${err}` })
+        } else {
+            res.writeHead(200, { 'Content-type': 'image/jpg' });
             res.end(content);
         }
     });
