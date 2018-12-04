@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema({
   },
   imagenPerfil: {
     type: String,
-    default: 'https://chef-now-api.herokuapp.com/receta/imagen/default.jpeg'
+    default: 'https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg'
   }
 });
 

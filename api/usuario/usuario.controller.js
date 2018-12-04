@@ -9,14 +9,14 @@ const bcrypt = require('bcrypt-nodejs');
  *  Method: POST
  */
 module.exports.create = async (req, res) => {
-  const usuario = new Usuario(req.body);
+  const user = new Usuario(req.body);
   
   if (!user.password) {
     throw new Error('Password requerida');
   }
   user.password = bcrypt.hashSync(user.password);
 
-  usuario.save((error, response) => {
+  user.save((error, response) => {
     if (error) {
       console.log('Error al crear usuario', error);
       res.status(400).json({ message: 'Error al crear usuario: ' +  error.message });
