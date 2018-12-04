@@ -25,7 +25,7 @@ const RecetaSchema = new mongoose.Schema({
     },
     imagenPrincipal: {
         type: String,
-        default: 'https://e-fisiomedic.com/wp-content/uploads/2013/11/default-placeholder-300x300.png'
+        default: 'https://chef-now-api.herokuapp.com/receta/imagen/default.jpeg'
     }
 });
 

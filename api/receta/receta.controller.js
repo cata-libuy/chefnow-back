@@ -103,6 +103,7 @@ module.exports.view = async(req, res) => {
  *  Method: POST
  */
 module.exports.upload = async(req, res) => {
+    console.log('llegó')
     if (req.file) {
         res.json({ success: true, filename: req.file.filename });
     } else {
@@ -111,6 +112,7 @@ module.exports.upload = async(req, res) => {
 };
 
 module.exports.viewImage = (req, res) => {
+    console.log('llegó a otra parte')
     let filename = req.params.filename;
     fs.readFile(`./uploads/${filename}`, function(err, content) {
         if (err) {

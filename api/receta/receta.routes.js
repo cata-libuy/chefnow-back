@@ -23,6 +23,6 @@ module.exports = (app) => {
     app.delete('/receta/:id', controller.remove);
     app.get('/receta/:id', controller.view);
     app.put('/receta/:id', controller.update);
-    app.post('/receta/imagen/', upload.single('imagen'), controller.upload);
+    app.post('/receta/imagen', upload.single('imagen'), controller.upload);
     app.get('/receta/imagen/:filename', controller.viewImage);
 };
