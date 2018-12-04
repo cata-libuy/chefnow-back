@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
   deleted: {
     type: Boolean,
     default: false,
+  },
+  imagenPerfil: {
+    type: String,
+    default: 'https://chef-now-api.herokuapp.com/receta/imagen/default.jpeg'
   }
 });
 
